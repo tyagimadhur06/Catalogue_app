@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadData() async {
-    await Future.delayed(Duration(seconds : 2));
+    await Future.delayed(Duration(seconds: 2));
     var catalogJson = await rootBundle.loadString("assets/files/catalog.json");
     var decodedData = jsonDecode(catalogJson);
     var productsData = decodedData["products"];
@@ -45,16 +45,24 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: (CatalogModel.item != null && CatalogModel.item.isNotEmpty)?
-         ListView.builder(
-          itemCount: CatalogModel.item.length,
-          itemBuilder: (context, index) {
-            return ItemWidget(
-              item: CatalogModel.item[index],
-            );
-          },
-        ):Center(child: CircularProgressIndicator(),
-          ),
+        child: (CatalogModel.item != null && CatalogModel.item.isNotEmpty)
+            ? GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemBuilder: (context, index) {
+                  final item = CatalogModel.item[index];
+                  return Card(
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    child: GridTile(
+                    child: Image.network(item.image)));
+                },
+                itemCount: CatalogModel.item.length,
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
       drawer: MyDrawer(),
     );
