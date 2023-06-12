@@ -12,10 +12,12 @@ class HomeDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: MyTheme.creamColor,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
+      backgroundColor: context.canvasColor,
       bottomNavigationBar: Container(
-        color: Colors.white,
+        color: context.cardColor,
         child: ButtonBar(
                 alignment: MainAxisAlignment.spaceBetween,
                 buttonPadding: EdgeInsets.zero,
@@ -23,11 +25,11 @@ class HomeDetailPage extends StatelessWidget {
                   "\$${Catalog.price}".text.bold.xl4.make(),
                   ElevatedButton(onPressed: () {}, 
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(MyTheme.darkBluish),
+                    backgroundColor: MaterialStateProperty.all(context.theme.buttonColor),
                     shape: MaterialStateProperty.all(StadiumBorder(),)
                   ),
-                  child: "Buy".text.xl.make(),
-                  ).wh(100, 50)
+                  child: "Add to cart".text.make(),
+                  ).wh(120, 50)
                 ],
         ).p32(),
       ),
@@ -45,14 +47,16 @@ class HomeDetailPage extends StatelessWidget {
                 arcType: VxArcType.CONVEY,
                 edge: VxEdge.TOP,
                 child: Container(
-                  color: Colors.white,
+                  color: context.cardColor,
                   width:context.screenWidth,
                   child:
                   Column(
                     children: [
-                      Catalog.name.text.xl4.bold.color(MyTheme.darkBluish).bold.make(),
+                      Catalog.name.text.xl4.bold.color(context.accentColor).bold.make(),
                       Catalog.desc.text.textStyle(context.captionStyle).xl.make(),
                       10.heightBox,
+                      "Invidunt ipsum accusam erat et amet amet et, amet sea voluptua ut est labore consetetur amet. Sea diam rebum amet diam invidunt et kasd sanctus. Eirmod eos ipsum erat sit ut lorem consetetur ipsum labore. Lorem diam ut sed et ipsum et invidunt. Amet sea rebum labore sit sed dolor."
+                      .text.textStyle(context.captionStyle).make().p16()
                     ],
                   ).py64(),
                 )))   
