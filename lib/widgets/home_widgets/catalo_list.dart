@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:myapp/pages/home_detail_page.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../models/catalog.dart';
-import '../themes.dart';
+import 'add_to_cart.dart';
 import 'catalog_image.dart';
-
 
 class CatalogList extends StatelessWidget {
   const CatalogList({super.key});
@@ -18,12 +18,20 @@ class CatalogList extends StatelessWidget {
       itemBuilder: (context, index) {
         final catalog = CatalogModel.item[index];
         return InkWell(
-          onTap:() => Navigator.push(context,MaterialPageRoute(builder: (context) => HomeDetailPage(Catalog: catalog,),),),
-          child: CatalogItem(catalog: catalog));
+            onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeDetailPage(
+                      Catalog: catalog,
+                    ),
+                  ),
+                ),
+            child: CatalogItem(catalog: catalog));
       },
     );
   }
 }
+
 class CatalogItem extends StatelessWidget {
   final Item catalog;
 
@@ -52,12 +60,7 @@ class CatalogItem extends StatelessWidget {
               buttonPadding: EdgeInsets.zero,
               children: [
                 "\$${catalog.price}".text.bold.xl.make(),
-                ElevatedButton(onPressed: () {}, 
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(context.theme.buttonColor),
-                  shape: MaterialStateProperty.all(StadiumBorder(),)
-                ),
-                child: "Add to cart".text.make(),)
+                addToCart(catalog: catalog)
               ],
             ).pOnly(right: 8.0)
           ],
